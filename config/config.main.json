@@ -1,0 +1,29 @@
+{
+    "APPSTATE_PATH": "./appState.json",
+    "APPSTATE_PROTECTION": false,
+    "AUTO_PING_SERVER": true,
+    "ALLOW_INBOX": true,
+    "DATABASE": "JSON",
+    "DATABASE_JSON_BEAUTIFY": true,
+    "FCA_OPTIONS": {
+        "pauseLog": false,
+        "logLevel": "error",
+        "selfListen": false,
+        "listenEvents": true,
+        "forceLogin": true,
+        "online": true
+    },
+    "LANGUAGE": "en_US",
+    "LOG_LEVEL": 2,
+    "MODERATORS": [
+        "61563763283847"
+    ],
+    "ABSOLUTES": [
+        "61563763283847"
+    ],
+    "NAME": "loki",
+    "PREFIX": ".",
+    "timezone": "Asia/Manila",
+    "REFRESH": null,
+    "MAX_BALANCE_LIMIT": "-1"
+}
