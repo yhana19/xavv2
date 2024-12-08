@@ -58,7 +58,7 @@ async function start() {
 
         const api = await loginState();
         global.api = api;
-        global.botID = api.getCurrentUserID();
+        global.botID = 0
 
         logger.custom(getLang("build.start.logged", { botID }), "LOGIN");
 
@@ -96,7 +96,6 @@ async function booting(api, xDatabase) {
             Users: xDatabase.users,
         };
 
-        refreshState();
         const refreshDelay = parseInt(global.config.REFRESH);
         if (refreshDelay > 0) autoReloadApplication(refreshDelay);
 

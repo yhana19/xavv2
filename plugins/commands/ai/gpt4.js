@@ -10,13 +10,12 @@ const config = {
 async function fetchAi(prompt, uid) {
     try {
         const { data } = await axios.get(
-            `https://joshweb.click/gpt4?prompt=${prompt}&uid=${uid}`
+            `https://api.joshweb.click/api/gpt-4o?q=${prompt}&uid=${uid}`
         );
         return data.gpt4;
     } catch (e) {
         console.error(e);
         throw new Error(e);
-        return e;
     }
 }
 
@@ -30,14 +29,13 @@ const langData = {
     }
 };
 
-async function reply({ message, getLang }) {
+async function reply({ message, getLang, args }) {
     const prompt = message.body;
     message.react("🕜");
     try {
         const res = await fetchAi(prompt, message.senderID);
        await message.react("✅");
-        message
-            .reply(getLang("success", { resp: res }))
+        message.reply(getLang("success", { resp: res }))
             .then(m => m.addReplyEvent({ callback: reply }));
     } catch (e) {
         message.react("❌");
@@ -47,9 +45,10 @@ async function reply({ message, getLang }) {
 
 async function onCall({ message, args, getLang }) {
     const prompt = args.join(" ");
-    message.react("🕜");
+   await message.react("🕜");
     try {
         const res = await fetchAi(prompt, message.senderID);
+        console.log(res)
         message.react("✅");
         message
             .reply(getLang("success", { resp: res }))
