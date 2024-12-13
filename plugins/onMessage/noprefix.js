@@ -1,6 +1,4 @@
-const pr = global.config.PREFIX
-const regex = new RegExp(`^${pr}`)
-const noPrefix = ["ai","remini","pin","bb", "gpt4", "spotify"] //names that does not need a prefix
+const noPrefix = ["ai","remini","pin","bb", "gpt4", "spotify", "lm"] //names that does not need a prefix
 
 
 async function onCall(methods) {

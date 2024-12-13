@@ -6,18 +6,20 @@ const config = {
 
 async function onCall({message,args}) {
   const inp = args.join(" ").split("-")
+
+  
   const q = inp[0];
-  const num = parseInt(inp[1])
+  const num = parseInt(inp[1]) || 5
   if(!q || isNaN(num)) {
     return message.reply("Usage: pin <query> -5");
   }
+  if(num < 1 || num > 10) return message.reply("[!] Invalid amount of image. Image amount mustn't be lower than 1 and greater than 10.")
   await message.react("🔎")
   try {
-     const {data: result} = await axios.get(`https://api.kenliejugarap.com/pinterestbymarjhun/?search=${q}`);
+     const {data: result} = await axios.get(`https://hiroshi-api.onrender.com/image/pinterest?search=${q}`);
     const pins = [];
     for(let i = 0; i < num; i++) {
       const {data: stream} = await axios.get(result.data[i], {responseType: "stream"});
-      stream.path = `image-${i}.jpg`;
       pins.push(stream)
     }
     await message.react("")

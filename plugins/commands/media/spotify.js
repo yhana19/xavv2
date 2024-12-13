@@ -6,21 +6,21 @@ const config = {
 
 async function onCall({message, args}) {
   const query = args.join(" ");
+  const artist = query.split("|")[1] || "";
   const {api} = global;
-  if(!query) return message.reply("Usage: spotify <query>");
+  if(!query) return message.reply("Usage: spotify <query> | artist (optional)");
   try {
-    const {data} = await axios.get(`https://hiroshi-api.onrender.com/tiktok/spotify?search=${query}`);
+    const {data} = await axios.get(`https://ace-rest-api.onrender.com/api/spotify?search=${query}&artist=${artist}`);
     
-    const {data: imgSt} = await axios.get(data[0].image, {responseType: "stream"});
-    const {data: mp3St} = await axios.get(data[0].download, {responseType: "stream"});
+    const {data: imgSt} = await axios.get(data.track.album_image, {responseType: "stream"});
+    const {data: mp3St} = await axios.get(data.download.download_url, {responseType: "stream"});
     
-    imgSt.path = Date.now() + ".jpg";
-    mp3St.path = Date.now() + ".mp3";
     
    const temp = await message.reply({attachment: imgSt});
+    
    return api.sendMessage({attachment: mp3St}, message.threadID, temp.messageID)
   } catch (e) {
-    console.error(e.body)
+    console.error(e)
   }
 }
 

@@ -6,14 +6,17 @@ const config = {
 }
 
 const onCall = async ({message,args}) => {
-  const method = args[0].toLowerCase();
-  const url = args[1];
-
+  const method = args[0]?.toLowerCase();
+  const inp = args.join(" ").split("|")
+  const r = new RegExp(`${method}`)
+  const url = inp[0]?.replace(r, "").trim();
+  const params = inp[1] ? JSON.parse(inp[1]) : null;
 
   if(!["post","get"].includes(method)) {
-    return message.reply("Usage: pm [post | get] [url]")
+    return message.reply("[!] Usage: pm [post | get] [url]")
   }
     if(!isUrl(url)) {
+      console.log(url)
     return message.reply("Invalid url.")
     }
   try {
@@ -23,12 +26,18 @@ const onCall = async ({message,args}) => {
          break;
      }
        case "get": {
-         const {data} = 
-await axios.get(url);
+         const what = await axios.get(url, {
+           params
+         })
+         if(what.headers["content-type"]?.includes("image/")) {
+           const {data: img} = await axios.get(url, {responseType: "stream"})
+
+           return message.reply({attachment: img})
+         }
          return message.reply(`Response: ${data}`)
        } 
      }
-  } catch (error) {
+  } catch (e) {
     console.error(e)
     return message.reply("An error occured!")
   }

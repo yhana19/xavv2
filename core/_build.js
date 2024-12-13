@@ -5,7 +5,7 @@ import { writeFileSync } from "fs";
 import { resolve as resolvePath } from "path";
 import logger from "./var/modules/logger.js";
 
-import login from "ryuu-fca-api";
+
 import startServer from "./dashboard/server/app.js";
 import handleListen from "./handlers/listen.js";
 import { isGlitch, isReplit } from "./var/modules/environments.get.js";
@@ -22,7 +22,7 @@ import { XDatabase } from "./handlers/database.js";
 import { Assets } from "./handlers/assets.js";
 
 import crypto from "crypto";
-
+import login from 'fca-priyansh'
 process.stdout.write(String.fromCharCode(27) + "]0;" + "Xavia" + String.fromCharCode(7));
 
 process.on("unhandledRejection", (reason, p) => {
@@ -57,8 +57,9 @@ async function start() {
         logger.custom(getLang("build.start.logging"), "LOGIN");
 
         const api = await loginState();
+        
         global.api = api;
-        global.botID = 0
+        global.botID = api.getCurrentUserID();
 
         logger.custom(getLang("build.start.logged", { botID }), "LOGIN");
 
@@ -191,7 +192,16 @@ async function loginState() {
 
     const options = global.config.FCA_OPTIONS;
 
-    return await login({ appState }, options);
+    return new Promise((resolve, reject) => { // Remove 'async' from here
+        login({ appState }, options, (err, api) => { // Correct callback usage
+            if (err) {
+                console.error("Login error:", err); // Important: Log the error
+                return reject(err); // Reject the Promise on error
+            }
+            
+            resolve(api); // Resolve with the api object
+        });
+    });
 }
 
 start();

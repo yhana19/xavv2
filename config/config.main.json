@@ -9,7 +9,7 @@
         "pauseLog": false,
         "logLevel": "error",
         "selfListen": false,
-        "listenEvents": true,
+        "listenEvents": false,
         "forceLogin": true,
         "online": false,
         "userAgent": "Mozilla/5.0 (Linux; Android 9; SM-G973U Build/PPR1.180610.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Mobile Safari/537.36"
@@ -27,6 +27,6 @@
     "NAME": "loki",
     "PREFIX": ".",
     "timezone": "Asia/Manila",
-    "REFRESH": "1800000",
+    "REFRESH": null,
     "MAX_BALANCE_LIMIT": "-1"
 }
