@@ -22,7 +22,7 @@ import { XDatabase } from "./handlers/database.js";
 import { Assets } from "./handlers/assets.js";
 
 import crypto from "crypto";
-import login from 'fca-priyansh'
+import login from 'chatbox-fca-remake'
 process.stdout.write(String.fromCharCode(27) + "]0;" + "Xavia" + String.fromCharCode(7));
 
 process.on("unhandledRejection", (reason, p) => {
@@ -192,16 +192,18 @@ async function loginState() {
 
     const options = global.config.FCA_OPTIONS;
 
-    return new Promise((resolve, reject) => { // Remove 'async' from here
-        login({ appState }, options, (err, api) => { // Correct callback usage
+    return await new Promise((resolve,reject) => {
+        
+    login({ appState },(err, api) => { // Correct callback usage
+
+        console.log(Object.keys(api))
             if (err) {
                 console.error("Login error:", err); // Important: Log the error
-                return reject(err); // Reject the Promise on error
+                return reject(err)// Reject the Promise on error
             }
-            
-            resolve(api); // Resolve with the api object
-        });
-    });
+            api.setOptions(options)
+            return resolve(api) // Resolve with the api object
+        });});
 }
 
 start();
