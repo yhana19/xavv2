@@ -333,7 +333,7 @@ async function onCall({ message, args, getLang, userPermissions }) {
         loanUser.loanRequest = 0;
         try {
           await fs.writeFile(PATH, JSON.stringify(bankData, null, 2), 'utf-8');
-          message.reply(getLang("loan.approved", { bankName }));
+          message.reply(getLang("loan.auto approved", { bankName }));
         } catch (error) {
           console.error('Error writing to JSON file:', error);
           message.reply(getLang("error"));
