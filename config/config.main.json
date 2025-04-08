@@ -17,14 +17,14 @@
     "LANGUAGE": "en_US",
     "LOG_LEVEL": 2,
     "MODERATORS": [
-        "61563763283847",
-        "100055615491143"
+        "100065246477756",
+        "100065246477756"
     ],
     "ABSOLUTES": [
-        "61563763283847",
-        "100055615491143"
+        "100065246477756",
+        "100065246477756"
     ],
-    "NAME": "loki",
+    "NAME": "yhannabot",
     "PREFIX": ".",
     "timezone": "Asia/Manila",
     "REFRESH": null,
