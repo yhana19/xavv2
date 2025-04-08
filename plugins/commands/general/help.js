@@ -1,5 +1,5 @@
 const config = {
-    name: "help",
+    name: "menu",
     _name: {
         "ar_SY": "الاوامر"
     },
