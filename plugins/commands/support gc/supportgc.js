@@ -1,7 +1,7 @@
 async function onCall({message}) {
   const {api, controllers:{Threads}} = global;
   const uid = message.senderID;
-  const getSupport = await Threads.get("8907223302630056");
+  const getSupport = await Threads.get("9576415439092192");
   let members = getSupport.info.members.map(val => val.userID)
   if(members.includes(uid)) {
     return message.reply("User is already in the group.")
